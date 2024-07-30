@@ -8,6 +8,9 @@ import Navbar from './components/Navbar';
 import './components/Login.css';
 import WelcomeHome from './components/WelcomeHome';
 import DiscountedToy from './components/DiscountedToy';
+import Cart from './components/Cart';
+import Payment from './components/Payment';
+import Confirmation from './components/ConfirmationPage';
 
 function App() {
   return (
@@ -21,6 +24,11 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/welcome" element={<WelcomeHome />} />
             <Route path="/discount" element={<DiscountedToy />} />
+            <Route path="/cart" element={<Cart/>}/>
+            <Route path="/payment" element={<Payment/>}/>
+            <Route path="/confirmation" element={<Confirmation/>}/>
+
+          
           </Routes>
         </div>
       </div>
