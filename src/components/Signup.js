@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -9,7 +10,7 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/users', {
+      const response = await fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -28,6 +29,8 @@ function Signup() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="container form-container">
       <h2>Signup</h2>
       <form onSubmit={handleSignup}>
@@ -51,11 +54,12 @@ function Signup() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-          />
+            />
         </div>
         <button type="submit" className="btn btn-primary">Signup</button>
       </form>
     </div>
+            </>
   );
 }
 

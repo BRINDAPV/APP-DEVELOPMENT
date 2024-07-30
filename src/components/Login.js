@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from './Navbar';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,7 +9,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/users?email=${email}&password=${password}`);
+      const response = await fetch(`http://localhost:3000/users?email=${email}&password=${password}`);
       const data = await response.json();
       if (data.length > 0) {
         // User found, navigate to profile
@@ -24,6 +24,8 @@ function Login() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="container form-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
@@ -36,7 +38,7 @@ function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-          />
+            />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
@@ -47,11 +49,12 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-          />
+            />
         </div>
         <button type="submit" className="btn btn-primary">Login</button>
       </form>
     </div>
+            </>
   );
 }
 
