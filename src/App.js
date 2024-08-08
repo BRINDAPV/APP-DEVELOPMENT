@@ -1,39 +1,65 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Profile from './components/Profile';
-import Navbar from './components/Navbar';
-import './components/Login.css';
-import WelcomeHome from './components/WelcomeHome';
-import DiscountedToy from './components/DiscountedToy';
-import Cart from './components/Cart';
-import Payment from './components/Payment';
-import Confirmation from './components/ConfirmationPage';
+import React, { useState } from 'react';
+import './App.css';
 
-function App() {
+const App = () => {
+  const [isSignup, setIsSignup] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (isSignup) {
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+      alert(`Signed up with Email: ${email}`);
+    } else {
+      alert(`Logged in with Email: ${email}`);
+    }
+  };
+
   return (
-    <Router>
-      <div>
-        <div className="container mt-3">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/welcome" element={<WelcomeHome />} />
-            <Route path="/discount" element={<DiscountedToy />} />
-            <Route path="/cart" element={<Cart/>}/>
-            <Route path="/payment" element={<Payment/>}/>
-            <Route path="/confirmation" element={<Confirmation/>}/>
-
-          
-          </Routes>
+    <div className="App">
+      <h2>{isSignup ? 'Sign Up' : 'Login'}</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
-      </div>
-    </Router>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {isSignup && (
+          <div>
+            <label>Confirm Password:</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+        )}
+        <button type="submit">{isSignup ? 'Sign Up' : 'Login'}</button>
+      </form>
+      <button onClick={() => setIsSignup(!isSignup)}>
+        {isSignup ? 'Switch to Login' : 'Switch to Sign Up'}
+      </button>
+    </div>
   );
-}
+};
 
 export default App;
