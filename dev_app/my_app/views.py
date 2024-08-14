@@ -2,8 +2,9 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 from django.contrib.auth import authenticate
-from .models import Users, Person , Profile
-from .serializers import UsersSerializer, PersonSerializer, ProfileSerializer
+from .models import Users, Person , Profile, Toys, Carts
+from .serializers import UsersSerializer, PersonSerializer, ProfileSerializer, ToysSerializer, CartsSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = Users.objects.all()
@@ -63,3 +64,15 @@ class PersonViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+class ToysViewSet(viewsets.ModelViewSet):
+    queryset = Toys.objects.all()
+    serializer_class = ToysSerializer
+    
+class CartsViewSet(viewsets.ModelViewSet):
+    queryset = Carts.objects.all()
+    serializer_class = CartsSerializer

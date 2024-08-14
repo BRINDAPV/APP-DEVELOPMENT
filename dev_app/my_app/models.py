@@ -19,3 +19,17 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Toys(models.Model):
+    toy_name = models.CharField(max_length=98)
+    toy_image = models.URLField()
+    toy_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+class Carts(models.Model):
+    id = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.IntegerField()
+
+    def _str_(self):
+        return self.name
